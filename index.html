@@ -17,6 +17,7 @@
   </head>
   <body>
     <header>
+      <canvas id="logo" width="120" height="120">Eyob Tilaye logo</canvas>
       <h1>Eyob Tilaye</h1>
       <img
         src="images/profile.jpg"
@@ -191,6 +192,10 @@
             75%
           </meter>
         </p>
+
+        <canvas id="skillsChart" width="300" height="150"
+          >Skills Bar Chart</canvas
+        >
 
         <h3>My Learning Roadmap</h3>
         <ol type="1">
@@ -544,5 +549,65 @@
       <p>&copy; 2026 Eyob Tilaye. All rights reserved.</p>
       <p>Last updated: <time datetime="2026-11-05">5 November 2026</time></p>
     </footer>
+
+    <script>
+      const canvas = document.getElementById("logo");
+      const ctx = canvas.getContext("2d");
+      // 1. Blue square background: x, y, width, height
+      ctx.fillStyle = "#1f5fa8";
+      ctx.fillRect(0, 0, 120, 120);
+      // 2. White circle: centre x, centre y, radius, start angle, end angle
+      ctx.beginPath();
+      ctx.arc(60, 60, 45, 0, 2 * Math.PI);
+      ctx.fillStyle = "white";
+      ctx.fill();
+      // 3. Initials in the middle
+      ctx.fillStyle = "#1f5fa8";
+      ctx.font = "bold 36px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("ET", 60, 62);
+
+      // Skills Bar Chart
+      const chart = document.getElementById("skillsChart");
+      const chartCtx = chart.getContext("2d");
+
+      // Background and baseline
+      chartCtx.fillStyle = "#f5f5f5";
+      chartCtx.fillRect(0, 0, 300, 150);
+
+      chartCtx.beginPath();
+      chartCtx.moveTo(10, 130);
+      chartCtx.lineTo(290, 130);
+      chartCtx.strokeStyle = "#888888";
+      chartCtx.stroke();
+
+      // Skills data matching meters
+      const skillsData = [
+        { label: "HTML", pct: 0.8 },
+        { label: "Python", pct: 0.7 },
+        { label: "JS", pct: 0.2 },
+        { label: "Java", pct: 0.75 },
+      ];
+
+      const barWidth = 40;
+      const spacing = 25;
+      const startX = 30;
+
+      skillsData.forEach(function (item, i) {
+        const barHeight = item.pct * 100;
+        const x = startX + i * (barWidth + spacing);
+        const y = 130 - barHeight;
+
+        chartCtx.fillStyle = "#1f5fa8";
+        chartCtx.fillRect(x, y, barWidth, barHeight);
+
+        chartCtx.fillStyle = "#000000";
+        chartCtx.font = "12px Arial";
+        chartCtx.textAlign = "center";
+        chartCtx.textBaseline = "top";
+        chartCtx.fillText(item.label, x + barWidth / 2, 133);
+      });
+    </script>
   </body>
 </html>
